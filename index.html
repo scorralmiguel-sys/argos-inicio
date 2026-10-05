@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0E2A5C">
+  <title>ARGOS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app" aria-label="Inicio ARGOS">
+    <div id="scene" aria-hidden="true">
+      <img
+        id="argosFace"
+        class="argos-face"
+        src="assets/caras/01_argos_feliz.png"
+        alt=""
+        draggable="false"
+      >
+    </div>
+
+    <section class="menu-panel" aria-label="Opciones">
+      <button id="playButton" class="main-button main-button--primary" type="button">
+        <span class="button-icon" aria-hidden="true">▶</span>
+        <span>Jugar a ARGOS Pong</span>
+      </button>
+
+      <button id="surveyButton" class="main-button main-button--secondary" type="button">
+        <span class="button-icon" aria-hidden="true">★</span>
+        <span>Encuesta de satisfacción</span>
+      </button>
+    </section>
+  </main>
+
+  <!-- Intro antes de entrar al juego -->
+  <section id="pongIntro" class="pong-intro" aria-hidden="true">
+    <img
+      id="pongLogo"
+      class="pong-intro__logo"
+      src="assets/logo_argos_nombre.png"
+      alt="ARGOS"
+      draggable="false"
+    >
+  </section>
+
+  <!-- Encuesta integrada de respaldo.
+       Si configuras SURVEY_URL en app.js, este diálogo no se usa. -->
+  <div id="surveyOverlay" class="modal-backdrop" hidden>
+    <section class="survey-card" role="dialog" aria-modal="true" aria-labelledby="surveyTitle">
+      <button id="closeSurvey" class="close-button" type="button" aria-label="Cerrar">×</button>
+
+      <h1 id="surveyTitle">Encuesta de satisfacción</h1>
+      <p class="survey-subtitle">Tu opinión nos ayuda a mejorar ARGOS.</p>
+
+      <form id="surveyForm">
+        <fieldset>
+          <legend>1. ¿Cómo valorarías tu experiencia con ARGOS?</legend>
+          <div class="rating" data-name="general"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. ¿Te resultó fácil de usar?</legend>
+          <div class="rating" data-name="facilidad"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>3. ¿ARGOS te ayudó a orientarte?</legend>
+          <div class="binary-choice">
+            <label><input type="radio" name="orientacion" value="Sí" required><span>Sí</span></label>
+            <label><input type="radio" name="orientacion" value="No"><span>No</span></label>
+          </div>
+        </fieldset>
+
+        <button class="submit-button" type="submit">Enviar respuesta</button>
+        <p id="surveyMessage" class="survey-message" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

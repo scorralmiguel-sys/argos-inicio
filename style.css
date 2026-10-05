@@ -1,0 +1,338 @@
+:root {
+  --azul-argos: #2E7CF6;
+  --azul-noche: #0E2A5C;
+  --cielo: #EAF2FE;
+  --blanco: #FFFFFF;
+  --mandarina: #FF8A1F;
+  --gris: #5B6B82;
+  --panel: rgba(14, 42, 92, 0.72);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--azul-noche);
+  font-family: Nunito, Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  touch-action: manipulation;
+}
+
+button {
+  font: inherit;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(46,124,246,.13), transparent 44%),
+    var(--azul-noche);
+}
+
+#scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.argos-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(160px, 22vmin, 315px);
+  height: auto;
+  transform-origin: center;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform, filter;
+  filter: drop-shadow(0 16px 34px rgba(0,0,0,.13));
+}
+
+.menu-panel {
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: max(34px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  width: min(900px, calc(100vw - 44px));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 30px;
+  background: var(--panel);
+  border: 1px solid rgba(234,242,254,.12);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.main-button {
+  min-height: 86px;
+  padding: 18px 24px;
+  border: 0;
+  border-radius: 24px;
+  cursor: pointer;
+  font-size: clamp(20px, 2vw, 29px);
+  font-weight: 800;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+  box-shadow: 0 10px 28px rgba(0,0,0,.13);
+}
+
+.main-button:hover,
+.main-button:focus-visible {
+  transform: translateY(-3px) scale(1.01);
+  outline: none;
+}
+
+.main-button:active {
+  transform: translateY(1px) scale(.985);
+}
+
+.main-button--primary {
+  color: white;
+  background: var(--azul-argos);
+}
+
+.main-button--primary:hover {
+  box-shadow: 0 14px 40px rgba(46,124,246,.29);
+}
+
+.main-button--secondary {
+  color: var(--azul-noche);
+  background: white;
+}
+
+.button-icon {
+  font-size: .82em;
+  opacity: .92;
+}
+
+/* ---------------------------------------------------------
+   Intro de ARGOS Pong
+   Se usa el PNG original completo, sin modificar su contenido.
+--------------------------------------------------------- */
+.pong-intro {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+
+  /* Mismo color que el fondo del PNG original usado en la versión Python */
+  background: rgb(49, 126, 239);
+  perspective: 1100px;
+}
+
+.pong-intro.is-active {
+  display: block;
+}
+
+.pong-intro__logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 108vw;
+  height: auto;
+  max-width: none;
+  transform-origin: center;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* ---------------------------------------------------------
+   Encuesta
+--------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(14,42,92,.78);
+  backdrop-filter: blur(8px);
+}
+
+.modal-backdrop[hidden] {
+  display: none;
+}
+
+.survey-card {
+  position: relative;
+  width: min(780px, 100%);
+  max-height: min(90vh, 760px);
+  overflow: auto;
+  background: white;
+  color: var(--azul-noche);
+  border-radius: 30px;
+  padding: 36px;
+  box-shadow: 0 28px 90px rgba(0,0,0,.26);
+}
+
+.survey-card h1 {
+  margin: 0 48px 8px 0;
+  font-size: clamp(28px, 4vw, 42px);
+}
+
+.survey-subtitle {
+  margin: 0 0 26px;
+  color: var(--gris);
+  font-size: 18px;
+}
+
+.close-button {
+  position: absolute;
+  right: 22px;
+  top: 18px;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--cielo);
+  color: var(--azul-noche);
+  font-size: 34px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 28px;
+}
+
+legend {
+  margin-bottom: 14px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.rating {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(46px, 64px));
+  gap: 12px;
+}
+
+.rating label,
+.binary-choice label {
+  cursor: pointer;
+}
+
+.rating input,
+.binary-choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rating span,
+.binary-choice span {
+  display: grid;
+  place-items: center;
+  min-height: 58px;
+  border: 2px solid #bfd0e7;
+  border-radius: 17px;
+  background: white;
+  font-size: 22px;
+  font-weight: 800;
+  transition: .15s ease;
+}
+
+.rating input:checked + span,
+.binary-choice input:checked + span {
+  background: var(--azul-argos);
+  border-color: var(--azul-argos);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.binary-choice {
+  display: grid;
+  grid-template-columns: repeat(2, 135px);
+  gap: 16px;
+}
+
+.submit-button {
+  width: 100%;
+  min-height: 62px;
+  border: 0;
+  border-radius: 19px;
+  background: var(--azul-argos);
+  color: white;
+  font-size: 21px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.survey-message {
+  min-height: 24px;
+  margin: 16px 0 0;
+  color: var(--gris);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   Responsive
+--------------------------------------------------------- */
+@media (max-width: 760px) {
+  .menu-panel {
+    grid-template-columns: 1fr;
+    width: min(520px, calc(100vw - 28px));
+    gap: 12px;
+    padding: 12px;
+    border-radius: 24px;
+  }
+
+  .main-button {
+    min-height: 70px;
+    border-radius: 19px;
+    font-size: 19px;
+  }
+
+  .argos-face {
+    width: clamp(125px, 27vmin, 210px);
+  }
+
+  .pong-intro__logo {
+    width: 118vw;
+  }
+
+  .survey-card {
+    padding: 28px 22px;
+    border-radius: 24px;
+  }
+
+  .rating {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .rating span {
+    min-height: 52px;
+  }
+
+  .binary-choice {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-button {
+    transition: none;
+  }
+}
